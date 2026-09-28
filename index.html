@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validación de Boleto</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #121212;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+    }
+    .card {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      max-width: 350px;
+      width: 100%;
+    }
+    .status-icon {
+      font-size: 80px;
+      margin-bottom: 15px;
+    }
+    h1 { font-size: 24px; margin-bottom: 10px; }
+    p { color: #aaa; font-size: 14px; }
+    
+    .valido { border: 3px solid #2e7d32; }
+    .valido h1 { color: #4caf50; }
+    
+    .invalido { border: 3px solid #c62828; }
+    .invalido h1 { color: #f44336; }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="tarjeta">
+    <div class="status-icon" id="icono">⏳</div>
+    <h1 id="titulo">Verificando...</h1>
+    <p id="mensaje">Procesando código del boleto</p>
+  </div>
+
+  <script>
+    // CAMBIA AQUÍ TU CÓDIGO SECRET0
+    const CODIGO_CORRECTO = "FIESTA2026"; 
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const codigoEscaneado = urlParams.get('codigo');
+
+    const tarjeta = document.getElementById('tarjeta');
+    const icono = document.getElementById('icono');
+    const titulo = document.getElementById('titulo');
+    const mensaje = document.getElementById('mensaje');
+
+    if (codigoEscaneado === CODIGO_CORRECTO) {
+      tarjeta.classList.add('valido');
+      icono.textContent = "✅";
+      titulo.textContent = "BOLETO VÁLIDO";
+      mensaje.textContent = "Acceso confirmado. ¡Bienvenido a la fiesta!";
+    } else {
+      tarjeta.classList.add('invalido');
+      icono.textContent = "❌";
+      titulo.textContent = "BOLETO FALSO";
+      mensaje.textContent = "El código de este boleto no es válido o ha caducado.";
+    }
+  </script>
+</body>
+</html>
